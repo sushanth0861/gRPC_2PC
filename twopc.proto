@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package twopc;
+
+service TwoPC {
+  rpc Initialize (InitializeRequest) returns (Empty);
+  rpc Prepare (VoteRequest) returns (VoteResponse);
+  rpc Commit (CommitRequest) returns (CommitResponse);
+  rpc Abort (AbortRequest) returns (AbortResponse);
+  rpc FetchCommit (FetchCommitRequest) returns (FetchCommitResponse);
+  rpc RestrictDBAccess (Empty) returns (Empty);
+  rpc AllowDBAccess (Empty) returns (Empty);
+}
+
+message InitializeRequest {
+  string transaction_id = 1;
+}
+
+message VoteRequest {
+  string transaction_id = 1;
+}
+
+message VoteResponse {
+  bool vote = 1;
+}
+
+message CommitRequest {
+  string transaction_id = 1;
+}
+
+message CommitResponse {
+  bool success = 1;
+}
+
+message AbortRequest {
+  string transaction_id = 1;
+}
+
+message AbortResponse {
+  bool success = 1;
+}
+
+message FetchCommitRequest {
+  string transaction_id = 1;
+}
+
+message FetchCommitResponse {
+  bool commit = 1;
+}
+
+message Empty {}
